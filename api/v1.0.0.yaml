@@ -1,0 +1,73 @@
+openapi: 3.0.0
+info:
+  description: |
+    This is the operation production scheduling microservice that polls data from an excel file.
+  version: "1.0.0"
+  title: Opeartion Planning Microservice
+  contact:
+    email: terry.chan@hohokusinc.com
+    
+tags:
+  - name: status
+    description: Everything about status
+
+paths:
+  /status:
+    get:
+      tags:
+        - status
+      summary: Get all status at Paterson
+      operationId: getStatusnj
+      parameters:
+        - name: sorting
+          in: query
+          description: This is getting the suggestion status with sorting order
+          required: true
+          schema:
+            type: string
+        - name: group
+          in: query
+          description: This is getting a specific status group
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/statusInfo'
+        '404':
+          description: Item not found
+
+components:
+  schemas:
+    statusInfo:
+      type: object
+      properties:
+        number:
+          type: string
+          example: 10
+        state:
+          type: string
+          example: CO/New
+        type:
+          type: string
+          example: C
+        part_number:
+          type: string
+          example: 7CKA16
+        quantity:
+          type: string
+          example: 16000
+        needs:
+          type: string
+          example: Assy/Pass/QC/Ship
+        status:
+          type: string
+          example: Assembly need to be done
+        ship_date:
+          type: string
+          example: 10/2/2021
