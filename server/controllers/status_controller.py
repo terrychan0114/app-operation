@@ -29,6 +29,7 @@ def get_statusnj(sorting, group=None):  # noqa: E501
 
     result = df.to_json(orient="records")
     df_json = json.loads(result)
+    df_json_sort = []
     for i in range(len(df_json)):
         
         df_json[i]["number"] = df_json[i].pop("number")
@@ -39,18 +40,32 @@ def get_statusnj(sorting, group=None):  # noqa: E501
         df_json[i]["needs"] = df_json[i].pop("Needs")
         df_json[i]["status"] = df_json[i].pop("Status")
         df_json[i]["ship_date"] = df_json[i].pop("Ship by:")
+        df_json[i]["color"] = df_json[i].pop("Color")
         try:
-            timestamp = df_json[i]["Date added"]/1000
+            timestamp = df_json[i]["ship_date"]/1000
             date = datetime.fromtimestamp(timestamp)
-            df_json[i]["date_added"] = date.strftime("%m/%d/%Y")
-            df_json[i].pop("Date added")
+            df_json[i]["ship_date"] = date.strftime("%m/%d/%Y")
         except:
-            logger.debug("This is not a timestamp")
-
+            logger.debug("Timestamp not avalible")
+        if group == 'C':
+            if df_json[i]['type'] == "C":
+                logger.debug("clamps")
+                df_json_sort.append(df_json[i])
+            else:
+                continue
+        elif group == 'L':
+            if df_json[i]['type'] == "L":
+                logger.debug("latches")
+                df_json_sort.append(df_json[i])
+            else:
+                continue
+        else:
+            df_json_sort.append(df_json[i])
+            continue
         
     if sorting == "number":
-        return_json = sorted(df_json,key=lambda i:i[sorting])
+        return_json = sorted(df_json_sort,key=lambda i:i[sorting])
     else:
-        return_json = sorted(df_json,key=lambda i:i[sorting], reverse=True)
-    # logger.debug(df_json_sort)
+        return_json = sorted(df_json_sort,key=lambda i:i[sorting], reverse=True)
+
     return return_json

@@ -14,7 +14,7 @@ class StatusInfo(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, number: str=None, state: str=None, type: str=None, part_number: str=None, quantity: str=None, needs: str=None, status: str=None, ship_date: str=None):  # noqa: E501
+    def __init__(self, number: str=None, state: str=None, type: str=None, part_number: str=None, quantity: str=None, needs: str=None, status: str=None, ship_date: str=None, color: str=None):  # noqa: E501
         """StatusInfo - a model defined in Swagger
 
         :param number: The number of this StatusInfo.  # noqa: E501
@@ -33,6 +33,8 @@ class StatusInfo(Model):
         :type status: str
         :param ship_date: The ship_date of this StatusInfo.  # noqa: E501
         :type ship_date: str
+        :param color: The color of this StatusInfo.  # noqa: E501
+        :type color: str
         """
         self.swagger_types = {
             'number': str,
@@ -42,7 +44,8 @@ class StatusInfo(Model):
             'quantity': str,
             'needs': str,
             'status': str,
-            'ship_date': str
+            'ship_date': str,
+            'color': str
         }
 
         self.attribute_map = {
@@ -53,7 +56,8 @@ class StatusInfo(Model):
             'quantity': 'quantity',
             'needs': 'needs',
             'status': 'status',
-            'ship_date': 'ship_date'
+            'ship_date': 'ship_date',
+            'color': 'color'
         }
         self._number = number
         self._state = state
@@ -63,6 +67,7 @@ class StatusInfo(Model):
         self._needs = needs
         self._status = status
         self._ship_date = ship_date
+        self._color = color
 
     @classmethod
     def from_dict(cls, dikt) -> 'StatusInfo':
@@ -242,3 +247,24 @@ class StatusInfo(Model):
         """
 
         self._ship_date = ship_date
+
+    @property
+    def color(self) -> str:
+        """Gets the color of this StatusInfo.
+
+
+        :return: The color of this StatusInfo.
+        :rtype: str
+        """
+        return self._color
+
+    @color.setter
+    def color(self, color: str):
+        """Sets the color of this StatusInfo.
+
+
+        :param color: The color of this StatusInfo.
+        :type color: str
+        """
+
+        self._color = color

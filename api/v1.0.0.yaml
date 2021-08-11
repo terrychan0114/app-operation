@@ -71,3 +71,6 @@ components:
         ship_date:
           type: string
           example: 10/2/2021
+        color:
+          type: string
+          example: red
