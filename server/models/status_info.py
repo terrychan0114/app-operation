@@ -14,7 +14,7 @@ class StatusInfo(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, number: str=None, state: str=None, type: str=None, part_number: str=None, quantity: str=None, needs: str=None, status: str=None, ship_date: str=None, color: str=None):  # noqa: E501
+    def __init__(self, number: str=None, state: str=None, type: str=None, cert: str=None, npx: str=None, po: str=None, part_number: str=None, quantity: str=None, needs: str=None, status: str=None, ship_date: str=None, notes: str=None):  # noqa: E501
         """StatusInfo - a model defined in Swagger
 
         :param number: The number of this StatusInfo.  # noqa: E501
@@ -23,6 +23,12 @@ class StatusInfo(Model):
         :type state: str
         :param type: The type of this StatusInfo.  # noqa: E501
         :type type: str
+        :param cert: The cert of this StatusInfo.  # noqa: E501
+        :type cert: str
+        :param npx: The npx of this StatusInfo.  # noqa: E501
+        :type npx: str
+        :param po: The po of this StatusInfo.  # noqa: E501
+        :type po: str
         :param part_number: The part_number of this StatusInfo.  # noqa: E501
         :type part_number: str
         :param quantity: The quantity of this StatusInfo.  # noqa: E501
@@ -33,41 +39,50 @@ class StatusInfo(Model):
         :type status: str
         :param ship_date: The ship_date of this StatusInfo.  # noqa: E501
         :type ship_date: str
-        :param color: The color of this StatusInfo.  # noqa: E501
-        :type color: str
+        :param notes: The notes of this StatusInfo.  # noqa: E501
+        :type notes: str
         """
         self.swagger_types = {
             'number': str,
             'state': str,
             'type': str,
+            'cert': str,
+            'npx': str,
+            'po': str,
             'part_number': str,
             'quantity': str,
             'needs': str,
             'status': str,
             'ship_date': str,
-            'color': str
+            'notes': str
         }
 
         self.attribute_map = {
             'number': 'number',
             'state': 'state',
             'type': 'type',
+            'cert': 'cert',
+            'npx': 'npx',
+            'po': 'po',
             'part_number': 'part_number',
             'quantity': 'quantity',
             'needs': 'needs',
             'status': 'status',
             'ship_date': 'ship_date',
-            'color': 'color'
+            'notes': 'notes'
         }
         self._number = number
         self._state = state
         self._type = type
+        self._cert = cert
+        self._npx = npx
+        self._po = po
         self._part_number = part_number
         self._quantity = quantity
         self._needs = needs
         self._status = status
         self._ship_date = ship_date
-        self._color = color
+        self._notes = notes
 
     @classmethod
     def from_dict(cls, dikt) -> 'StatusInfo':
@@ -142,6 +157,69 @@ class StatusInfo(Model):
         """
 
         self._type = type
+
+    @property
+    def cert(self) -> str:
+        """Gets the cert of this StatusInfo.
+
+
+        :return: The cert of this StatusInfo.
+        :rtype: str
+        """
+        return self._cert
+
+    @cert.setter
+    def cert(self, cert: str):
+        """Sets the cert of this StatusInfo.
+
+
+        :param cert: The cert of this StatusInfo.
+        :type cert: str
+        """
+
+        self._cert = cert
+
+    @property
+    def npx(self) -> str:
+        """Gets the npx of this StatusInfo.
+
+
+        :return: The npx of this StatusInfo.
+        :rtype: str
+        """
+        return self._npx
+
+    @npx.setter
+    def npx(self, npx: str):
+        """Sets the npx of this StatusInfo.
+
+
+        :param npx: The npx of this StatusInfo.
+        :type npx: str
+        """
+
+        self._npx = npx
+
+    @property
+    def po(self) -> str:
+        """Gets the po of this StatusInfo.
+
+
+        :return: The po of this StatusInfo.
+        :rtype: str
+        """
+        return self._po
+
+    @po.setter
+    def po(self, po: str):
+        """Sets the po of this StatusInfo.
+
+
+        :param po: The po of this StatusInfo.
+        :type po: str
+        """
+
+        self._po = po
 
     @property
     def part_number(self) -> str:
@@ -249,22 +327,22 @@ class StatusInfo(Model):
         self._ship_date = ship_date
 
     @property
-    def color(self) -> str:
-        """Gets the color of this StatusInfo.
+    def notes(self) -> str:
+        """Gets the notes of this StatusInfo.
 
 
-        :return: The color of this StatusInfo.
+        :return: The notes of this StatusInfo.
         :rtype: str
         """
-        return self._color
+        return self._notes
 
-    @color.setter
-    def color(self, color: str):
-        """Sets the color of this StatusInfo.
+    @notes.setter
+    def notes(self, notes: str):
+        """Sets the notes of this StatusInfo.
 
 
-        :param color: The color of this StatusInfo.
-        :type color: str
+        :param notes: The notes of this StatusInfo.
+        :type notes: str
         """
 
-        self._color = color
+        self._notes = notes

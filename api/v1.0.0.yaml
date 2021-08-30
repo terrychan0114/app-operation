@@ -56,6 +56,15 @@ components:
         type:
           type: string
           example: C
+        cert:
+          type: string
+          example: No
+        npx:
+          type: string
+          example: No
+        po:
+          type: string
+          example: 188450
         part_number:
           type: string
           example: 7CKA16
@@ -71,6 +80,6 @@ components:
         ship_date:
           type: string
           example: 10/2/2021
-        color:
+        notes:
           type: string
-          example: red
+          example: Needs machining

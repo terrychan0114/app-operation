@@ -31,37 +31,58 @@ def get_statusnj(sorting, group=None):  # noqa: E501
     df_json = json.loads(result)
     df_json_sort = []
     for i in range(len(df_json)):
-        
-        df_json[i]["number"] = df_json[i].pop("number")
-        df_json[i]["state"] = df_json[i].pop("New/Carry Over")
-        df_json[i]["type"] = df_json[i].pop("Clamp/Latch")
-        df_json[i]["part_number"] = df_json[i].pop("Part #")
-        df_json[i]["quantity"] = df_json[i].pop("Qty.")
-        df_json[i]["needs"] = df_json[i].pop("Needs")
-        df_json[i]["status"] = df_json[i].pop("Status")
-        df_json[i]["ship_date"] = df_json[i].pop("Ship by:")
-        df_json[i]["color"] = df_json[i].pop("Color")
-        try:
-            timestamp = df_json[i]["ship_date"]/1000
-            date = datetime.fromtimestamp(timestamp)
-            df_json[i]["ship_date"] = date.strftime("%m/%d/%Y")
-        except:
-            logger.debug("Timestamp not avalible")
-        if group == 'C':
-            if df_json[i]['type'] == "C":
-                logger.debug("clamps")
-                df_json_sort.append(df_json[i])
-            else:
-                continue
-        elif group == 'L':
-            if df_json[i]['type'] == "L":
-                logger.debug("latches")
-                df_json_sort.append(df_json[i])
-            else:
-                continue
-        else:
-            df_json_sort.append(df_json[i])
+        if df_json[i]["Part #"] == None:
+            logger.debug("Empty entry")
             continue
+        else:
+            df_json[i]["number"] = df_json[i].pop("#")
+            df_json[i]["state"] = df_json[i].pop("New/Carry Over")
+            df_json[i]["type"] = df_json[i].pop("Clamp/Latch")
+            df_json[i]["cert"] = df_json[i].pop("Certs Needed")
+            df_json[i]["npx"] = df_json[i].pop("NPX or DLT Needed")
+            df_json[i]["po"] = df_json[i].pop("PO / File #")
+            df_json[i]["part_number"] = df_json[i].pop("Part #")
+            df_json[i]["quantity"] = df_json[i].pop("Qty.")
+            df_json[i]["needs"] = df_json[i].pop("Needs")
+            df_json[i]["status"] = df_json[i].pop("Status")
+            df_json[i]["notes"] = df_json[i].pop("Notes")
+            df_json[i]["ship_date"] = df_json[i].pop("Ship by:")
+            
+            try:
+                timestamp = df_json[i]["ship_date"]/1000
+                date = datetime.fromtimestamp(timestamp)
+                df_json[i]["ship_date"] = date.strftime("%m/%d/%Y")
+            except:
+                logger.debug("Timestamp not avalible")
+
+            if df_json[i]["status"] == "Shipped/ Shipping":
+                df_json[i]["color"] = "green"
+            elif df_json[i]["status"] == "Waiting on Virginia":
+                df_json[i]["color"] = "yellow"
+            elif df_json[i]["status"] == "Job is stopped":
+                df_json[i]["color"] = "red"
+            elif df_json[i]["status"] == "Stock items need to be pulled":
+                df_json[i]["color"] = "lightblue"
+            elif df_json[i]["status"] == "Job is delayed":
+                df_json[i]["color"] = "orange"
+            else:
+                df_json[i]["color"] = "white"
+
+            if group == 'C':
+                if df_json[i]['type'] == "C":
+                    logger.debug("clamps")
+                    df_json_sort.append(df_json[i])
+                else:
+                    continue
+            elif group == 'L':
+                if df_json[i]['type'] == "L":
+                    logger.debug("latches")
+                    df_json_sort.append(df_json[i])
+                else:
+                    continue
+            else:
+                df_json_sort.append(df_json[i])
+                continue
         
     if sorting == "number":
         return_json = sorted(df_json_sort,key=lambda i:i[sorting])
