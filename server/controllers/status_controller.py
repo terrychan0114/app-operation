@@ -10,8 +10,8 @@ from datetime import datetime
 from server.models.status_info import StatusInfo  # noqa: E501
 from server import util
 
-# file = "/usr/src/app/doc/kaizen_board.xlsx"
-file = "X:/S1-Operations Shared/PAT Production Meeting/test_production.xlsx"
+file = "/home/pi/shared_sales/S1-Operations Shared/PAT Production Meeting/test_production.xlsx"
+# file = "X:/S1-Operations Shared/PAT Production Meeting/test_production.xlsx"
 
 def get_statusnj(sorting, group=None):  # noqa: E501
     """Get all status at Paterson
